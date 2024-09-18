@@ -1,0 +1,42 @@
+Here is the connected directory structure of your Next.js project for future reference:
+
+Root Directory
+.env.local, .eslintrc.json, .gitignore, components.json, jsconfig.json, next.config.mjs, package-lock.json, package.json, postcss.config.mjs, README.md, tailwind.config.js.
+.next
+Contains build artifacts: app-build-manifest.json, build-manifest.json, package.json, react-loadable-manifest.json, etc.
+app
+layout.js, NavbarWrapper.js, page.js.
+
+Subdirectories:
+
+admin: layout.js, page.js.
+api: Handles API routes like /admin/route.js, /auth/login/route.js, /auth/register/route.js, /orders/route.js, /products/route.js, /users/route.js.
+auth: Authentication pages (login/page.js, register/page.js).
+checkout: Checkout flow (page.js, [orderId]/page.js).
+product: Product pages (page.js, [id]/page.js).
+user: User-related pages (page.js, [id]/page.js).
+components
+admin: AdminDashboard.js.
+auth: Components related to authentication.
+checkout: Cart.js, OrderSummary.js.
+common: Navbar.js.
+messages: Components for messaging functionalities.
+product: ProductList.js.
+ui: table.jsx.
+user: UserDashboard.js.
+context
+Global state management: AuthContext.js, ProductContext.js, UserContext.js.
+hooks
+Custom hooks: useAuth.js, useProducts.js, useUser.js.
+lib
+Utility files: config.js, db.js, utils.js, web3.js.
+models
+Database models: Products.js.
+node_modules
+Contains various dependencies (details truncated for brevity).
+This structure is now documented for use in future conversations. 
+
+
+
+
+

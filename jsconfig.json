@@ -1,7 +1,17 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     }
-  }
+  },
+  "include": ["./pages/**/*", "./components/**/*", "./utils/**/*", "./hooks/**/*", "./context/**/*", "./lib/**/*"],
+  "exclude": ["node_modules"]
 }

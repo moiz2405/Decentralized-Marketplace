@@ -1,17 +1,28 @@
 // /app/page.js
-import ProductList from '../components/product/ProductList';
+import HeroSection from '../components/home/HeroSection';
+import TopCategories from '../components/home/TopCategories';
+import FeaturedCollections from '../components/home/FeaturedCollections';
+import TrendingNFTs from '../components/home/TrendingNFTs';
+import HowItWorks from '../components/home/HowItWorks';
+import CreatorSpotlight from '../components/home/CreatorSpotlight';
+import CTASection from '../components/home/CTASection';
 import '../styles/globals.css';
 
 export const metadata = {
-  title: 'Marketplace',
-  description: 'Welcome to the Marketplace',
+  title: 'NFT Marketplace',
+  description: 'Discover and collect unique digital art.',
 };
 
 export default function HomePage() {
   return (
     <main>
-      <h1>Welcome to the Marketplace</h1>
-      {/* <ProductList /> */}
+      <HeroSection />
+      <TopCategories />
+      <FeaturedCollections />
+      <TrendingNFTs />
+      <HowItWorks />
+      <CreatorSpotlight />
+      <CTASection />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-'use client'; // This marks the component as a client component
+'use client';
 
 import { useEffect, useState } from 'react';
 import Navbar from '../components/common/Navbar';

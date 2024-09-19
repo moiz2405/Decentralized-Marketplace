@@ -68,6 +68,18 @@ body {
   .text-foreground {
     color: var(--foreground); /* Text color based on CSS variable */
   }
+  /* Add this to your global CSS or a specific CSS module for the Navbar component */
+.navbar {
+  min-height: 65px; /* Adjust the value as needed */
+}
+/* Add this to your global CSS or Tailwind configuration if using custom styles */
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+.carousel-item {
+  flex: none;
+}
 
   .text-balance {
     text-wrap: balance; /* Ensure this is a valid CSS property or remove if not needed */

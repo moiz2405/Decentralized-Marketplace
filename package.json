@@ -13,6 +13,7 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.5.5",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.441.0",
     "mongodb": "^6.9.0",

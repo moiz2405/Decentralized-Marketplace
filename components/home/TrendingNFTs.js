@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 
 export default function TrendingNFTs() {
   const nfts = [
-    { id: 1, name: 'CryptoArt #1', price: '2 ETH', img: '/images/nft1.jpg' },
-    { id: 2, name: 'Digital Collectible #2', price: '1.5 ETH', img: '/images/nft2.jpg' },
-    { id: 3, name: 'Virtual Asset #3', price: '3 ETH', img: '/images/nft3.jpg' },
+    { id: 1, name: 'CryptoArt #1', price: '2 ETH', img: '/images/home-trendingnfts/1.jpg' },
+    { id: 2, name: 'Digital Collectible #2', price: '1.5 ETH', img: '/images/home-trendingnfts/2.jpg' },
+    { id: 3, name: 'Virtual Asset #3', price: '3 ETH', img: '/images/home-trendingnfts/3.jpg' },
     // Add more NFTs or fetch dynamically
   ];
 

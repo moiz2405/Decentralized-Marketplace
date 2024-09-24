@@ -9,7 +9,7 @@ const creators = [
   {
     name: 'Artist A',
     bio: 'A brief bio about Artist A and their work in the NFT space.',
-    image: '/images/creator1.jpg',
+    image: '/images/home-creator/1.jpg',
     socials: {
       twitter: '#',
       instagram: '#',
@@ -19,7 +19,7 @@ const creators = [
   {
     name: 'Artist B',
     bio: 'A brief bio about Artist B and their innovative styles.',
-    image: '/images/creator2.jpg',
+    image: '/images/home-creator/2.jpg',
     socials: {
       twitter: '#',
       instagram: '#',
@@ -29,7 +29,7 @@ const creators = [
   {
     name: 'Artist C',
     bio: 'A brief bio about Artist C and their contributions to digital art.',
-    image: '/images/creator3.jpg',
+    image: '/images/home-creator/3.jpg',
     socials: {
       twitter: '#',
       instagram: '#',

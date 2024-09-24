@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
 
 const FeaturedProducts = () => {
   const featured = [
-    { id: 1, name: "Product 1", price: "1.2 ETH", image: "/images/product1.jpg" },
-    { id: 2, name: "Product 2", price: "0.8 ETH", image: "/images/product2.jpg" },
-    { id: 3, name: "Product 3", price: "3.0 ETH", image: "/images/product3.jpg" },
+    { id: 1, name: "Product 1", price: "1.2 ETH", image: "/images/productpage/product1.jpg" },
+    { id: 2, name: "Product 2", price: "0.8 ETH", image: "/images/productpage/product2.jpg" },
+    { id: 3, name: "Product 3", price: "3.0 ETH", image: "/images/productpage/product3.jpg" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -10,12 +10,12 @@ export default function FeaturedCollections() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
 
   const collections = [
-    { name: 'Collection 1', image: '/images/featured1.jpg', description: 'Explore unique digital art.' },
-    { name: 'Collection 2', image: '/images/featured2.jpg', description: 'Discover rare music NFTs.' },
-    { name: 'Collection 3', image: '/images/featured3.jpg', description: 'Collectible in-game assets.' },
-    { name: 'Collection 4', image: '/images/featured4.jpg', description: 'Virtual lands and properties.' },
-    { name: 'Collection 5', image: '/images/featured5.jpg', description: 'Rare and collectible cards.' },
-    { name: 'Collection 6', image: '/images/featured6.jpg', description: 'Limited edition artworks.' },
+    { name: 'Collection 1', image: '/images/home/digital-art.jpg', description: 'Explore unique digital art.' },
+    { name: 'Collection 2', image: '/images/home/music-category.jpg', description: 'Discover rare music NFTs.' },
+    { name: 'Collection 3', image: '/images/home/gaming-category.jpg', description: 'Collectible in-game assets.' },
+    { name: 'Collection 4', image: '/images/home/virtual-property.jpg', description: 'Virtual lands and properties.' },
+    { name: 'Collection 5', image: '/images/home/collectibles-category.jpg', description: 'Rare and collectible cards.' },
+    { name: 'Collection 6', image: '/images/home/limites-edition', description: 'Limited edition artworks.' },
   ];
 
   useEffect(() => {

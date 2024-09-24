@@ -22,27 +22,27 @@ export default function TrendingNFTs() {
           {nfts.map((nft) => (
             <motion.div
               key={nft.id}
-              className="nft-card p-4 bg-white border border-gray-300 rounded-lg shadow-lg relative overflow-hidden"
+              className="nft-card p-4 bg-white border border-gray-300 rounded-lg shadow-lg relative overflow-hidden cursor-pointer"
               initial={{ opacity: 0.9, scale: 0.95 }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',
+                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.4)',
                 borderColor: '#d1d5db',
                 transition: { 
-                  duration: 0.2, // Faster transition for instant effect
-                  ease: 'easeInOut'
+                  duration: 0.15, // Shorter duration for quicker response
+                  ease: [0.25, 0.46, 0.45, 0.94] // Smoother ease-in-out curve for hover effects
                 }
               }}
               style={{ 
                 boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
                 borderColor: '#e5e7eb',
-                transition: 'box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out' // Smoother transitions
+                transition: 'box-shadow 0.15s ease, transform 0.15s ease' // Instant feedback on hover
               }}
             >
               <img
                 src={nft.img}
                 alt={nft.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
+                className="w-full h-48 object-cover rounded-lg mb-4 transition-transform duration-150 ease-in-out"
               />
               <h3 className="text-xl font-semibold mb-2">{nft.name}</h3>
               <p className="text-gray-600">{nft.price}</p>

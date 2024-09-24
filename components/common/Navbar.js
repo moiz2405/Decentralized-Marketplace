@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import TypingEffect from 'react-typing-effect'; // Using react-typing-effect as an alternative
+import TypingEffect from 'react-typing-effect';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+  const [activeLink, setActiveLink] = useState('');
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,12 +34,26 @@ const Navbar = () => {
     }
   }, [isOpen]);
 
+  // Mock user object for demonstration
+  const user = { initials: 'U' }; // Replace with actual user data
+
+  // Define nav links with their display names
+  const navLinks = [
+    { path: '/', name: 'Home' },
+    { path: '/product', name: 'Products' },
+    { path: '/user', name: 'User' },
+    { path: '/checkout', name: 'Checkout' },
+    { path: '/admin', name: 'Admin' },
+    { path: '/auth/login', name: 'Login' },
+    { path: '/auth/register', name: 'Register' },
+  ];
+
   return (
     <nav className="navbar bg-gray-800 bg-opacity-60 backdrop-blur-md p-6 shadow-lg fixed w-full top-0 left-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-white text-lg font-bold cursor-pointer">
           <TypingEffect
-            text={['Decentralized Marketplace', 'Welcome to Decentralized Marketplace']}
+            text={['Decentralized Marketplace']}
             speed={100}
             eraseDelay={1000}
             typingDelay={500}
@@ -47,27 +62,23 @@ const Navbar = () => {
         </Link>
         {/* Main Navbar Links */}
         <div className="hidden md:flex space-x-4">
-          <Link href="/">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Home</span>
-          </Link>
-          <Link href="/product">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Products</span>
-          </Link>
-          <Link href="/user">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">User</span>
-          </Link>
-          <Link href="/checkout">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Checkout</span>
-          </Link>
-          <Link href="/admin">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Admin</span>
-          </Link>
-          <Link href="/auth/login">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Login</span>
-          </Link>
-          <Link href="/auth/register">
-            <span className="text-white hover:text-gray-400 transition-colors duration-300">Register</span>
-          </Link>
+          {navLinks.map(({ path, name }, index) => (
+            <Link 
+              key={index} 
+              href={path} 
+              className={`text-white hover:text-gray-400 transition-colors duration-300 ${activeLink === path ? 'underline' : ''}`} 
+              onClick={() => setActiveLink(path)}
+            >
+              {name}
+            </Link>
+          ))}
+          <div className="relative hidden md:block">
+            <input type="text" className="p-2 rounded bg-gray-700 text-white" placeholder="Search NFTs..." />
+          </div>
+          <div className="flex items-center">
+            <span className="text-white">{user ? user.initials : 'Guest'}</span>
+            <button className="bg-blue-600 text-white ml-2 px-4 py-2 rounded">Connect Wallet</button>
+          </div>
         </div>
         {/* Hamburger Button */}
         <div className="md:hidden">
@@ -96,27 +107,16 @@ const Navbar = () => {
         ref={menuRef}
         className={`md:hidden overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? 'max-h-screen' : 'max-h-0'}`}
       >
-        <Link href="/" className="block text-white hover:text-gray-400 p-2">
-          Home
-        </Link>
-        <Link href="/product" className="block text-white hover:text-gray-400 p-2">
-          Products
-        </Link>
-        <Link href="/user" className="block text-white hover:text-gray-400 p-2">
-          User
-        </Link>
-        <Link href="/checkout" className="block text-white hover:text-gray-400 p-2">
-          Checkout
-        </Link>
-        <Link href="/admin" className="block text-white hover:text-gray-400 p-2">
-          Admin
-        </Link>
-        <Link href="/auth/login" className="block text-white hover:text-gray-400 p-2">
-          Login
-        </Link>
-        <Link href="/auth/register" className="block text-white hover:text-gray-400 p-2">
-          Register
-        </Link>
+        {navLinks.map(({ path, name }, index) => (
+          <Link 
+            key={index} 
+            href={path} 
+            className="block text-white hover:text-gray-400 p-2" 
+            onClick={() => setActiveLink(path)}
+          >
+            {name}
+          </Link>
+        ))}
       </div>
     </nav>
   );

@@ -1,10 +1,14 @@
+// /components/product/ProductList.js
 "use client";
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Spinner, Alert, AlertIcon } from '@chakra-ui/react';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,26 +30,60 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
+  const handleProductClick = (id) => {
+    router.push(`/product/${id}`);
+  };
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return (
+    <div className="flex justify-center items-center h-screen">
+      <Spinner size="xl" color="teal.500" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="p-4">
+      <Alert status="error">
+        <AlertIcon />
+        {error}
+      </Alert>
+    </div>
+  );
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Product List</h2>
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {products.map((product) => (
-          <li key={product.id} className="border p-4 rounded shadow">
-            <h3 className="text-xl font-semibold">{product.name}</h3>
-            <p className="text-gray-700">{product.description}</p>
-            <p className="text-green-600 font-bold">Price: ${product.price}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-black min-h-screen relative">
+      <img 
+        src="/images/p2.jpg" // Path to your background image
+        alt="Background Image" 
+        className="absolute inset-0 w-full h-full object-cover opacity-30" // Adjust opacity if needed
+      />
+      <div className="relative z-10 container mx-auto p-6">
+        <h2 className="text-3xl font-bold mb-6 text-center text-white">Product List</h2>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <li
+              key={product.id}
+              className="bg-gray-800 rounded-lg shadow-2xl transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer overflow-hidden border border-gray-700"
+              onClick={() => handleProductClick(product.id)}
+            >
+              <div className="h-48 overflow-hidden">
+                {product.image && (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  />
+                )}
+              </div>
+              <div className="p-4">
+                <h3 className="text-xl font-semibold text-white">{product.name}</h3>
+                <p className="text-gray-300">{product.description}</p>
+                <p className="text-green-400 font-bold mt-2">Price: ${product.price}</p>
+                <p className="text-gray-500">Category: {product.category}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

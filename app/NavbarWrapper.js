@@ -7,7 +7,6 @@ const NavbarWrapper = () => {
   const [navHeight, setNavHeight] = useState(0);
 
   useEffect(() => {
-    // Find the navbar element and get its height
     const navbar = document.querySelector('.navbar');
     if (navbar) {
       setNavHeight(navbar.offsetHeight);
@@ -17,7 +16,6 @@ const NavbarWrapper = () => {
   return (
     <>
       <Navbar />
-      {/* Apply dynamic padding based on navbar height */}
       <div style={{ paddingTop: `${navHeight}px` }}></div>
     </>
   );

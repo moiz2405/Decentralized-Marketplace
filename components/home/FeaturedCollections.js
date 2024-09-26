@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import Image from 'next/image'; // Import the Image component
 
 export default function FeaturedCollections() {
   const [itemWidth, setItemWidth] = useState(0);
-  const [selectedCollection, setSelectedCollection] = useState(null); // Track selected collection for modal
-  const [currentIndex, setCurrentIndex] = useState(0); // Track current index in modal
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const collections = [
     { name: 'Collection 1', image: '/images/home/digital-art.jpg', description: 'Explore unique digital art.' },
@@ -63,22 +64,24 @@ export default function FeaturedCollections() {
             className="flex space-x-6"
             initial={{ x: 0 }}
             animate={{ x: [-itemWidth, 0] }}
-            transition={{ duration: 15, ease: 'linear', repeat: Infinity }} // Adjust duration here
+            transition={{ duration: 15, ease: 'linear', repeat: Infinity }}
           >
             {collections.map((collection, index) => (
               <motion.div
                 key={index}
-                className="carousel-item flex-none w-full sm:w-60 md:w-72 lg:w-80 xl:w-96 bg-white border border-gray-300 shadow-lg rounded-lg p-4 mb-4 relative transition-all duration-300 transform hover:scale-105 z-10" // Hover and z-index to ensure scaling works
+                className="carousel-item flex-none w-full sm:w-60 md:w-72 lg:w-80 xl:w-96 bg-white border border-gray-300 shadow-lg rounded-lg p-4 mb-4 relative transition-all duration-300 transform hover:scale-105 z-10"
                 initial={{ opacity: 0.8, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
                 onClick={() => handleClick(index)}
-                style={{ zIndex: index === currentIndex ? 20 : 10 }} // Ensures active item stays on top
+                style={{ zIndex: index === currentIndex ? 20 : 10 }}
               >
                 <div className="absolute inset-0 rounded-lg border border-transparent shadow-lg" />
-                <img
+                <Image
                   src={collection.image}
                   alt={collection.name}
+                  width={300} // Specify width
+                  height={200} // Specify height
                   className="w-full h-48 object-cover rounded-md mb-4 border border-gray-200"
                 />
                 <div className="text-center text-gray-800">
@@ -91,7 +94,6 @@ export default function FeaturedCollections() {
         </div>
       </div>
 
-      {/* Modal Window for Selected Collection */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
           <div className="relative bg-white rounded-lg overflow-hidden max-w-lg w-full">
@@ -103,16 +105,17 @@ export default function FeaturedCollections() {
             </button>
             {selectedCollection && (
               <div className="p-6">
-                <img
+                <Image
                   src={selectedCollection.image}
                   alt={selectedCollection.name}
+                  width={500} // Specify width
+                  height={300} // Specify height
                   className="w-full h-64 object-cover rounded-md mb-4"
                 />
                 <h3 className="text-2xl font-semibold mb-2">{selectedCollection.name}</h3>
                 <p className="text-gray-700">{selectedCollection.description}</p>
               </div>
             )}
-            {/* Navigation Arrows */}
             <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
               <button
                 className="bg-gray-800 text-white p-2 rounded-full"

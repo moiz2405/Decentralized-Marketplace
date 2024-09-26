@@ -2,16 +2,20 @@
 import React, { useState } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import Image from 'next/image'; // Import Next.js Image component
 
 const ProductImage = ({ image, alt }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="image-preview relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
-      <img
+      <Image
         src={image}
         alt={alt}
-        className="w-full h-auto cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+        layout="responsive" // Use responsive layout
+        width={300} // Specify width
+        height={200} // Specify height
+        className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
         onClick={() => setIsOpen(true)}
       />
       {isOpen && (

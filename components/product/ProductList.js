@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Spinner, Alert, AlertIcon } from '@chakra-ui/react';
+import Image from 'next/image'; // Import Next.js Image component
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -36,6 +37,7 @@ const ProductList = () => {
   if (loading) return (
     <div className="flex justify-center items-center h-screen">
       <Spinner size="xl" color="teal.500" />
+      <span className="ml-4 text-white">Loading products...</span>
     </div>
   );
 
@@ -43,32 +45,37 @@ const ProductList = () => {
     <div className="p-4">
       <Alert status="error">
         <AlertIcon />
-        {error}
+        {error} 
+        <button className="ml-4 underline" onClick={() => { setError(null); setLoading(true); }}>Retry</button>
       </Alert>
     </div>
   );
 
   return (
-    <div className="bg-black min-h-screen relative">
-      <img 
+    <section className="bg-black min-h-screen relative">
+      <Image 
         src="/images/placeholder-5.jpg" // Path to your background image
         alt="Background Image" 
-        className="absolute inset-0 w-full h-full object-cover opacity-30" // Adjust opacity if needed
+        layout="fill" // Use layout fill for responsive background
+        className="absolute inset-0 object-cover opacity-30" // Adjust opacity if needed
       />
       <div className="relative z-10 container mx-auto p-6">
         <h2 className="text-3xl font-bold mb-6 text-center text-white">Product List</h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <li
-              key={product.id}
+              key={product.id} // Ensure unique key
               className="bg-gray-800 rounded-lg shadow-2xl transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer overflow-hidden border border-gray-700"
               onClick={() => handleProductClick(product.id)}
             >
               <div className="h-48 overflow-hidden">
-                <img
-                  src={product.image || `/images/placeholder-${index + 1}.jpg`} // Fallback to placeholder
+                <Image
+                  src={product.image || `/images/placeholder-${Math.floor(Math.random() * 5) + 1}.jpg`} // Fallback to random placeholder
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  layout="responsive"
+                  width={300} // Set width for responsive images
+                  height={200} // Set height for responsive images
+                  className="transition-transform duration-300 hover:scale-110"
                 />
               </div>
               <div className="p-4">
@@ -81,7 +88,7 @@ const ProductList = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 };
 

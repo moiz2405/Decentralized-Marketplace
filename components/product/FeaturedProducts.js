@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+import Image from 'next/image'; // Import Next.js Image component
 
 const FeaturedProducts = () => {
   const featured = [
@@ -15,10 +16,10 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % featured.length);
-    }, 3000); // 6 seconds duration
+    }, 6000); // 6 seconds duration
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [currentIndex]);
+  }, []); // Empty dependency array to avoid unnecessary updates
 
   return (
     <div className="bg-black py-8 overflow-hidden relative h-96">
@@ -38,13 +39,13 @@ const FeaturedProducts = () => {
             transition={{ type: "tween", duration: 1 }}
           >
             {/* Product Image */}
-            <motion.img
+            <Image
               src={featured[currentIndex].image}
               alt={featured[currentIndex].name}
+              width={300} // Set desired width
+              height={200} // Set desired height
               className="w-full md:w-1/2 h-48 md:h-64 object-cover rounded-lg shadow-lg"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              priority // Optional: load this image first for better performance
             />
 
             {/* Product Details */}

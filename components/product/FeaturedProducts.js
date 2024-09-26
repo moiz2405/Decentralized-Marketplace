@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
 import Image from 'next/image'; // Import Next.js Image component
 
@@ -11,12 +11,13 @@ const FeaturedProducts = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const featuredLengthRef = useRef(featured.length); // Create a ref to hold the length of featured array
 
-  // Auto-change product every 6 seconds
+  // Auto-change product every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % featured.length);
-    }, 6000); // 6 seconds duration
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredLengthRef.current); // Use ref for length
+    }, 3000); // 3 seconds duration
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []); // Empty dependency array to avoid unnecessary updates

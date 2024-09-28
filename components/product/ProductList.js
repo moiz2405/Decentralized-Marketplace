@@ -21,7 +21,7 @@ const ProductList = () => {
         // Use a consistent placeholder for products without images
         const updatedData = data.map(product => ({
           ...product,
-          image: product.image || `/images/placeholder.jpg`, // Use a single placeholder image
+          image: product.image || '/images/placeholder.jpg', // Use a single placeholder image
         }));
         setProducts(updatedData);
       } catch (err) {

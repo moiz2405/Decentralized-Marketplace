@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function HeroSection() {
   return (
@@ -14,6 +15,8 @@ export default function HeroSection() {
           muted
           playsInline
           className="w-full h-full object-cover opacity-70"
+          aria-label="Background video showcasing NFTs"
+          loading="lazy"
         >
           <source src="/videos/nft-background.mp4" type="video/mp4" />
           Your browser does not support the video tag.
@@ -26,7 +29,7 @@ export default function HeroSection() {
       {/* Content Container */}
       <div className="relative z-10 p-8 text-center max-w-2xl mx-auto">
         <motion.h1 
-          className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight text-white"
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -34,7 +37,7 @@ export default function HeroSection() {
           Welcome to Our Decentralized Marketplace
         </motion.h1>
         <motion.p 
-          className="text-lg md:text-xl mb-8 text-white"
+          className="text-base md:text-lg lg:text-xl mb-8 text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
@@ -47,6 +50,7 @@ export default function HeroSection() {
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          aria-label="Explore the marketplace"
         >
           Explore Now
         </motion.a>

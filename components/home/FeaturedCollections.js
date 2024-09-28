@@ -1,53 +1,80 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import Image from 'next/image'; // Import the Image component
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
+import Image from 'next/image';
 
 export default function FeaturedCollections() {
   const [itemWidth, setItemWidth] = useState(0);
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const carouselItemRef = useRef(null);
 
-  const collections = [
+  const collections = useMemo(() => [
     { name: 'Collection 1', image: '/images/home/digital-art.jpg', description: 'Explore unique digital art.' },
     { name: 'Collection 2', image: '/images/home/music-category.jpg', description: 'Discover rare music NFTs.' },
     { name: 'Collection 3', image: '/images/home/gaming-category.jpg', description: 'Collectible in-game assets.' },
     { name: 'Collection 4', image: '/images/home/virtual-property.jpg', description: 'Virtual lands and properties.' },
     { name: 'Collection 5', image: '/images/home/collectibles-category.jpg', description: 'Rare and collectible cards.' },
-    { name: 'Collection 6', image: '/images/home/limites-edition', description: 'Limited edition artworks.' },
-  ];
+    { name: 'Collection 6', image: '/images/home/limited-edition.jpg', description: 'Limited edition artworks.' },
+  ], []);
 
   useEffect(() => {
     const handleResize = () => {
-      const item = document.querySelector('.carousel-item');
-      if (item) {
-        setItemWidth(item.scrollWidth);
+      if (carouselItemRef.current) {
+        setItemWidth(carouselItemRef.current.scrollWidth);
       }
     };
 
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (carouselItemRef.current) {
+      resizeObserver.observe(carouselItemRef.current);
+    }
+
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [carouselItemRef]);
+
+  const handleNext = useCallback(() => {
+    const nextIndex = (currentIndex + 1) % collections.length;
+    setCurrentIndex(nextIndex);
+    setSelectedCollection(collections[nextIndex]);
+  }, [currentIndex, collections]);
+
+  const handlePrev = useCallback(() => {
+    const prevIndex = (currentIndex - 1 + collections.length) % collections.length;
+    setCurrentIndex(prevIndex);
+    setSelectedCollection(collections[prevIndex]);
+  }, [currentIndex, collections]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (isModalOpen) {
+        if (event.key === 'ArrowRight') {
+          handleNext();
+        } else if (event.key === 'ArrowLeft') {
+          handlePrev();
+        } else if (event.key === 'Escape') {
+          closeModal();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isModalOpen, handleNext, handlePrev]);
 
   const handleClick = (index) => {
     setSelectedCollection(collections[index]);
     setCurrentIndex(index);
     setIsModalOpen(true);
-  };
-
-  const handleNext = () => {
-    const nextIndex = (currentIndex + 1) % collections.length;
-    setCurrentIndex(nextIndex);
-    setSelectedCollection(collections[nextIndex]);
-  };
-
-  const handlePrev = () => {
-    const prevIndex = (currentIndex - 1 + collections.length) % collections.length;
-    setCurrentIndex(prevIndex);
-    setSelectedCollection(collections[prevIndex]);
   };
 
   const closeModal = () => {
@@ -69,20 +96,24 @@ export default function FeaturedCollections() {
             {collections.map((collection, index) => (
               <motion.div
                 key={index}
+                ref={carouselItemRef}
                 className="carousel-item flex-none w-full sm:w-60 md:w-72 lg:w-80 xl:w-96 bg-white border border-gray-300 shadow-lg rounded-lg p-4 mb-4 relative transition-all duration-300 transform hover:scale-105 z-10"
                 initial={{ opacity: 0.8, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
                 onClick={() => handleClick(index)}
                 style={{ zIndex: index === currentIndex ? 20 : 10 }}
+                role="button"
+                aria-label={`View details of ${collection.name}`}
               >
                 <div className="absolute inset-0 rounded-lg border border-transparent shadow-lg" />
                 <Image
                   src={collection.image}
                   alt={collection.name}
-                  width={300} // Specify width
-                  height={200} // Specify height
+                  width={300}
+                  height={200}
                   className="w-full h-48 object-cover rounded-md mb-4 border border-gray-200"
+                  onError={(e) => { e.target.src = '/images/placeholder.jpg'; }} // Fallback image
                 />
                 <div className="text-center text-gray-800">
                   <h3 className="text-xl font-semibold mb-1">{collection.name}</h3>
@@ -100,6 +131,7 @@ export default function FeaturedCollections() {
             <button
               className="absolute top-2 right-2 text-white bg-red-500 p-2 rounded-full"
               onClick={closeModal}
+              aria-label="Close modal"
             >
               ✕
             </button>
@@ -108,9 +140,10 @@ export default function FeaturedCollections() {
                 <Image
                   src={selectedCollection.image}
                   alt={selectedCollection.name}
-                  width={500} // Specify width
-                  height={300} // Specify height
+                  width={500}
+                  height={300}
                   className="w-full h-64 object-cover rounded-md mb-4"
+                  onError={(e) => { e.target.src = '/images/placeholder.jpg'; }} // Fallback image
                 />
                 <h3 className="text-2xl font-semibold mb-2">{selectedCollection.name}</h3>
                 <p className="text-gray-700">{selectedCollection.description}</p>
@@ -120,6 +153,7 @@ export default function FeaturedCollections() {
               <button
                 className="bg-gray-800 text-white p-2 rounded-full"
                 onClick={handlePrev}
+                aria-label="Previous collection"
               >
                 ←
               </button>
@@ -128,6 +162,7 @@ export default function FeaturedCollections() {
               <button
                 className="bg-gray-800 text-white p-2 rounded-full"
                 onClick={handleNext}
+                aria-label="Next collection"
               >
                 →
               </button>

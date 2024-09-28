@@ -39,6 +39,7 @@ export default function TrendingNFTs() {
                 borderColor: '#e5e7eb',
                 transition: 'box-shadow 0.15s ease, transform 0.15s ease'
               }}
+              aria-label={`View details of ${nft.name}`}
             >
               {/* Replace img with Image component */}
               <Image
@@ -47,6 +48,7 @@ export default function TrendingNFTs() {
                 width={300} // Set desired width
                 height={200} // Set desired height
                 className="w-full h-48 object-cover rounded-lg mb-4 transition-transform duration-150 ease-in-out"
+                onError={(e) => { e.target.src = '/images/placeholder.jpg'; }} // Fallback image
               />
               <h3 className="text-xl font-semibold mb-2">{nft.name}</h3>
               <p className="text-gray-600">{nft.price}</p>

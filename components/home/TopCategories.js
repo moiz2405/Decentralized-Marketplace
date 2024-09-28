@@ -2,18 +2,18 @@
 "use client";
 
 import { FaPaintBrush, FaMusic, FaGamepad, FaCrown } from 'react-icons/fa';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 export default function TopCategories() {
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
 
-  const categories = [
-    { name: 'Art', icon: <FaPaintBrush size={40} /> },
-    { name: 'Music', icon: <FaMusic size={40} /> },
-    { name: 'Collectibles', icon: <FaCrown size={40} /> },
-    { name: 'Gaming', icon: <FaGamepad size={40} /> },
-  ];
+  const categories = useMemo(() => [
+    { name: 'Art', icon: <FaPaintBrush size={40} aria-label="Art Icon" /> },
+    { name: 'Music', icon: <FaMusic size={40} aria-label="Music Icon" /> },
+    { name: 'Collectibles', icon: <FaCrown size={40} aria-label="Collectibles Icon" /> },
+    { name: 'Gaming', icon: <FaGamepad size={40} aria-label="Gaming Icon" /> },
+  ], []);
 
   const handleMouseMove = useCallback((e) => {
     const { clientX, clientY } = e;

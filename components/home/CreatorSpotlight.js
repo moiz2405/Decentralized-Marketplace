@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const creators = [
   {
@@ -49,13 +49,13 @@ export default function CreatorSpotlight() {
     return () => clearInterval(interval);
   }, []);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + creators.length) % creators.length);
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % creators.length);
-  };
+  }, []);
 
   const currentCreator = creators[currentIndex];
 
@@ -66,6 +66,7 @@ export default function CreatorSpotlight() {
         <motion.button
           onClick={handlePrev}
           className="bg-transparent text-white p-2 hover:bg-indigo-600 rounded-full transition duration-300"
+          aria-label="Previous Creator"
         >
           &lt;
         </motion.button>
@@ -91,6 +92,7 @@ export default function CreatorSpotlight() {
         <motion.button
           onClick={handleNext}
           className="bg-transparent text-white p-2 hover:bg-indigo-600 rounded-full transition duration-300"
+          aria-label="Next Creator"
         >
           &gt;
         </motion.button>
@@ -100,6 +102,7 @@ export default function CreatorSpotlight() {
           href={currentCreator.socials.twitter}
           className="text-indigo-300 hover:text-white transition duration-300"
           whileHover={{ scale: 1.1 }}
+          aria-label="Twitter"
         >
           Twitter
         </motion.a>
@@ -107,6 +110,7 @@ export default function CreatorSpotlight() {
           href={currentCreator.socials.instagram}
           className="text-indigo-300 hover:text-white transition duration-300"
           whileHover={{ scale: 1.1 }}
+          aria-label="Instagram"
         >
           Instagram
         </motion.a>
@@ -114,6 +118,7 @@ export default function CreatorSpotlight() {
           href={currentCreator.socials.portfolio}
           className="text-indigo-300 hover:text-white transition duration-300"
           whileHover={{ scale: 1.1 }}
+          aria-label="Portfolio"
         >
           Portfolio
         </motion.a>

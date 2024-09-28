@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
   }, []); // Empty dependency array to avoid unnecessary updates
 
   return (
-    <div className="bg-black py-8 overflow-hidden relative h-96">
+    <div className="bg-black py-8 overflow-hidden relative h-96" aria-live="polite">
       <h2 className="text-3xl font-bold mb-4 text-center text-white">
         Featured Products
       </h2>
@@ -42,11 +42,11 @@ const FeaturedProducts = () => {
             {/* Product Image */}
             <Image
               src={featured[currentIndex].image}
-              alt={featured[currentIndex].name}
+              alt={`Image of ${featured[currentIndex].name}`}
               width={300} // Set desired width
               height={200} // Set desired height
               className="w-full md:w-1/2 h-48 md:h-64 object-cover rounded-lg shadow-lg"
-              priority // Optional: load this image first for better performance
+              priority={currentIndex === 0} // Load the first image with priority
             />
 
             {/* Product Details */}
@@ -62,6 +62,7 @@ const FeaturedProducts = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 className="mt-4 bg-teal-500 text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition duration-300"
+                aria-label={`View details of ${featured[currentIndex].name}`}
               >
                 View Details
               </motion.button>

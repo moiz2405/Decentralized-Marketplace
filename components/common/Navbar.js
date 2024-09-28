@@ -1,10 +1,13 @@
+// components/common/Navbar.js
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import TypingEffect from 'react-typing-effect';
+import useWallet from '../../hooks/useWallet'; // Ensure this path is correct
 
 const Navbar = () => {
+  const { walletAddress, loading, connectPhantom, connectEthereum } = useWallet(); // Access wallet context
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const [activeLink, setActiveLink] = useState('');
@@ -33,9 +36,6 @@ const Navbar = () => {
       menuRef.current.style.maxHeight = isOpen ? `${menuRef.current.scrollHeight}px` : '0px';
     }
   }, [isOpen]);
-
-  // Mock user object for demonstration
-  const user = { initials: 'U' }; // Replace with actual user data
 
   // Define nav links with their display names
   const navLinks = [
@@ -72,12 +72,23 @@ const Navbar = () => {
               {name}
             </Link>
           ))}
-          <div className="relative hidden md:block">
-            <input type="text" className="p-2 rounded bg-gray-700 text-white" placeholder="Search NFTs..." />
-          </div>
           <div className="flex items-center">
-            <span className="text-white">{user ? user.initials : 'Guest'}</span>
-            <button className="bg-blue-600 text-white ml-2 px-4 py-2 rounded">Connect Wallet</button>
+            <span className="text-white">{walletAddress || 'Guest'}</span>
+            {/* Buttons for wallet connection */}
+            <button 
+              onClick={connectEthereum} 
+              className="bg-blue-600 text-white ml-2 px-4 py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? 'Connecting...' : 'Connect Ethereum'}
+            </button>
+            <button 
+              onClick={connectPhantom} 
+              className="bg-purple-600 text-white ml-2 px-4 py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? 'Connecting...' : 'Connect Phantom'}
+            </button>
           </div>
         </div>
         {/* Hamburger Button */}

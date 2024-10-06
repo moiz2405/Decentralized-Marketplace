@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useSpring, animated } from 'react-spring';
 
 const nftData = [
   { id: 1, src: '/images/home/slider-1.jpg', alt: 'NFT 1', description: 'Description for NFT 1' },
@@ -14,12 +13,9 @@ const NFTSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadingProgress, setLoadingProgress] = useState(Array(nftData.length).fill(0));
 
-  const springProps = loadingProgress.map(progress =>
-    useSpring({ width: `${progress}%`, config: { duration: 300 } })
-  );
-
   const startLoading = (index) => {
-    setLoadingProgress((prev) => prev.map((_, i) => (i === index ? 0 : _))); // Reset other bars
+    // Reset loading progress for the current NFT
+    setLoadingProgress((prev) => prev.map((_, i) => (i === index ? 0 : _)));
     const intervalId = setInterval(() => {
       setLoadingProgress((prev) => {
         const newProgress = [...prev];
@@ -123,9 +119,11 @@ const NFTSlider = () => {
             onClick={() => changeSlide(index)}
           >
             <div className="bg-blue-900 h-1 rounded"> {/* Dark Blue background for loading bar */}
-              <animated.div
-                className="bg-cyan-400 h-full rounded" // Bright Cyan filling color
-                style={springProps[index]} // Use spring props for width animation
+              <div
+                className={`bg-cyan-400 h-full rounded transition-all duration-300`}
+                style={{
+                  width: `${loadingProgress[index]}%`, // Set width dynamically
+                }}
               />
             </div>
           </div>

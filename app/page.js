@@ -1,6 +1,7 @@
 // /app/page.js
 "use client"; // Mark as a Client Component
-
+import ConnectWallet from '../components/common/ConnectWallet';
+import ConnectPhantom from '../components/common/ConnectPhantom';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '../components/home/LoadingScreen';
 import TopCategories from '../components/home/TopCategories';

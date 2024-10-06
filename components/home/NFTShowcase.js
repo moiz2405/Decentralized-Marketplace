@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image"; // Importing the Image component from Next.js
 import nftData from "../common/nftData"; // Adjust the import path as necessary
 
 const NFTShowcase = () => {
@@ -37,7 +38,13 @@ const NFTShowcase = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                         >
-                            <img src={nft.src} alt={nft.alt} className="nft-image" />
+                            <Image
+                                src={nft.src} // Ensure this path is correct
+                                alt={nft.alt}
+                                width={300} // Set an appropriate width
+                                height={300} // Set an appropriate height
+                                className="nft-image" // Optionally keep your styling
+                            />
                             <h3 className="nft-title">{nft.title}</h3>
                             <p className="nft-description">{nft.description}</p>
                         </motion.div>

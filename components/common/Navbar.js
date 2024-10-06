@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaSearch, FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
+import Image from 'next/image'; // Import the Image component
 import useWallet from '../../hooks/useWallet';
 
 const Navbar = () => {
@@ -47,15 +48,17 @@ const Navbar = () => {
   return (
     <nav 
       className="navbar p-4 fixed w-full top-0 left-0 z-50 flex justify-between items-center rounded-lg backdrop-blur-md"
-      style={{ backgroundColor: 'rgba(32, 32, 32, 0.7)' }} // Adjusted background color for glass effect
+      style={{ backgroundColor: 'rgba(32, 32, 32, 0.7)' }}
     >
       {/* Logo and Title */}
       <div className="flex items-center space-x-2">
-        <img 
+        <Image 
           src="/images/home/icon.png" 
           alt="Site Logo" 
-          className="text-white text-2xl w-8 h-8 rounded-lg"
-        /> 
+          width={32} // Set the actual width of your logo
+          height={32} // Set the actual height of your logo
+          className="text-white text-2xl rounded-lg"
+        />
         <Link href="/" className="cursor-pointer">
           <span className="text-white text-lg font-bold">MetaMint</span>
         </Link>
@@ -71,7 +74,7 @@ const Navbar = () => {
           <input
             id="search"
             type="text"
-            className="w-full p-2 rounded-lg bg-[#292929] text-white focus:outline-none" // Updated background color for search bar
+            className="w-full p-2 rounded-lg bg-[#292929] text-white focus:outline-none"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

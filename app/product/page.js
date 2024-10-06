@@ -17,10 +17,10 @@ const ProductList = dynamic(() => import('../../components/product/ProductList')
 const Testimonials = dynamic(() => import('../../components/product/Testimonials'), {
   loading: () => <p>Loading Testimonials...</p>,
 });
-const ConnectWallet = dynamic(() => import('../../components/Common/ConnectWallet'), {
+const ConnectWallet = dynamic(() => import('../../components/common/ConnectWallet'), {
   loading: () => <p>Loading Connect Wallet...</p>,
 });
-const ConnectPhantom = dynamic(() => import('../../components/Common/ConnectPhantom'), {
+const ConnectPhantom = dynamic(() => import('../../components/common/ConnectPhantom'), {
   loading: () => <p>Loading Connect Phantom...</p>,
 });
 

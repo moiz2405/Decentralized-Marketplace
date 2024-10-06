@@ -1,5 +1,8 @@
+// app/api/products/[id]/route.js
+
 import { NextResponse } from 'next/server';
 
+// Sample product data
 const products = [
   { id: 1, name: 'Product 1', description: 'Description of Product 1', price: 100 },
   { id: 2, name: 'Product 2', description: 'Description of Product 2', price: 200 },
@@ -9,6 +12,14 @@ const products = [
   { id: 6, name: 'Product 6', description: 'Description of Product 6', price: 600 },
 ];
 
+// Function to generate static parameters for dynamic routes
+export async function generateStaticParams() {
+  return products.map(product => ({
+    id: product.id.toString(), // Convert id to string for dynamic routing
+  }));
+}
+
+// GET request handler for fetching product details by ID
 export async function GET(request, { params }) {
   const { id } = params;
   const product = products.find(p => p.id === parseInt(id));

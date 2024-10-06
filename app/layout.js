@@ -15,9 +15,11 @@ export default function RootLayout({ children }) {
       <body>
         <NavbarWrapper /> {/* Use the NavbarWrapper to include the Navbar */}
         <WalletProvider> {/* Wrap children with WalletProvider */}
-          <main className="main-content"> {/* Apply padding to avoid overlap */}
-            {children}
-          </main>
+          <div className="scrollable-container"> {/* Add scrollable container */}
+            <main className="main-content"> {/* Apply padding to avoid overlap */}
+              {children}
+            </main>
+          </div>
         </WalletProvider>
       </body>
     </html>

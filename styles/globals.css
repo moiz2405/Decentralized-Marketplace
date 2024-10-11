@@ -131,6 +131,106 @@ body {
     text-wrap: balance; /* Ensure this is a valid CSS property or remove if not needed */
   }
 }
+/* styles/globals.css */
+
+/* Page container split into two halves */
+.pageContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #202020;
+}
+
+/* Left side - containing the image */
+.leftContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Ensures the image is properly positioned */
+  overflow: hidden; /* Prevents image from overflowing */
+}
+
+.loginImage {
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  object-fit: cover; /* Ensures the image covers the container */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+
+/* Right side - containing the login form */
+.rightContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.loginContainer {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.error {
+  color: #ff4d4d;
+  margin-bottom: 10px;
+  font-size: 0.875rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  text-align: left;
+  color: #555;
+}
+
+.input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+}
+
+.button {
+  padding: 10px 0;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;  /* Circular border */
+  background-color: #0056b3;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonDisabled {
+  background-color: #c1c1c1;
+  cursor: not-allowed;
+}
+
+
 
 /* Base layer styles */
 @layer base {

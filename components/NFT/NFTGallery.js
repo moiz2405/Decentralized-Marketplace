@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function NFTGallery() {
   const [nfts, setNfts] = useState([]);
@@ -21,7 +22,13 @@ export default function NFTGallery() {
           <div key={nft.tokenId} className="nft-item">
             <p>Token ID: {nft.tokenId}</p>
             <p>Owner: {nft.owner}</p>
-            <img src={nft.tokenURI} alt={`NFT ${nft.tokenId}`} />
+            {/* Use the next/image component */}
+            <Image 
+              src={nft.tokenURI} 
+              alt={`NFT ${nft.tokenId}`} 
+              width={500} 
+              height={500} 
+            />
           </div>
         ))}
       </div>

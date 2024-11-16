@@ -1,4 +1,3 @@
-// /app/page.js
 "use client"; // Mark as a Client Component
 
 import { useEffect, useState } from 'react';
@@ -20,8 +19,11 @@ import { metadata } from '../components/home/metadata'; // Import metadata from 
 import HeroSection from '../components/home/HeroSection'; // Fixed component name casing
 import '../styles/globals.css';
 import NFTShowcase from "../components/home/NFTShowcase"; // Add other components as needed
-
-export default function HomePage({ pageProps }) {
+// type PageProps = {
+//     // Define expected structure of `pageProps`
+//     [key: string]: unknown;
+//   };
+export default function HomePage({ }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,14 +39,12 @@ export default function HomePage({ pageProps }) {
   }
 
   return (
-
-      <main>
-        <NFTSlider />
-        <HeroSection />
-        <TopCategories />
-        <FeaturedCollections />
-        <CTASection />
-      </main>
-
+    <main>
+      <NFTSlider />
+      <HeroSection />
+      <TopCategories />
+      <FeaturedCollections />
+      <CTASection />
+    </main>
   );
 }

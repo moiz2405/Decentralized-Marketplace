@@ -1,8 +1,12 @@
 // /app/page.js
 "use client"; // Mark as a Client Component
+
+import { useEffect, useState } from 'react';
+// import { SessionProvider } from "next-auth/react"; // Import SessionProvider
+
+// Import components
 import ConnectWallet from '../components/common/ConnectWallet';
 import ConnectPhantom from '../components/common/ConnectPhantom';
-import { useEffect, useState } from 'react';
 import LoadingScreen from '../components/home/LoadingScreen';
 import TopCategories from '../components/home/TopCategories';
 import FeaturedCollections from '../components/home/FeaturedCollections';
@@ -15,8 +19,9 @@ import NFTSlider from '../components/home/NFTSlider';
 import { metadata } from '../components/home/metadata'; // Import metadata from the separate file
 import HeroSection from '../components/home/HeroSection'; // Fixed component name casing
 import '../styles/globals.css';
-import NFTShowcase from "../components/home/NFTShowcase";
-export default function HomePage() {
+import NFTShowcase from "../components/home/NFTShowcase"; // Add other components as needed
+
+export default function HomePage({ pageProps }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,17 +37,14 @@ export default function HomePage() {
   }
 
   return (
-    <main>
-      <NFTSlider />
-      {/* <NFTShowcase /> */}
-      {/* <ParallaxNFTCarousel /> */}
-      <HeroSection /> {/* Fixed component name casing */}
-      <TopCategories />
-      <FeaturedCollections />
-      {/* <TrendingNFTs /> */}
-      {/* <HowItWorks /> */}
-      {/* <CreatorSpotlight /> */}
-      <CTASection />
-    </main>
+
+      <main>
+        <NFTSlider />
+        <HeroSection />
+        <TopCategories />
+        <FeaturedCollections />
+        <CTASection />
+      </main>
+
   );
 }

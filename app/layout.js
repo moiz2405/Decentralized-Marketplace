@@ -1,7 +1,5 @@
-// app/layout.js
-
-import NavbarWrapper from './NavbarWrapper'; // Use the Navbar wrapper component
-import { WalletProvider } from '../context/WalletContext'; // Import the WalletProvider
+import Providers from './Providers'; // Import the Providers component
+import NavbarWrapper from './NavbarWrapper'; // Navbar
 import '../styles/globals.css';
 
 export const metadata = {
@@ -13,15 +11,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NavbarWrapper /> {/* Use the NavbarWrapper to include the Navbar */}
-        <WalletProvider> {/* Wrap children with WalletProvider */}
-          <div className="scrollable-container"> {/* Add scrollable container */}
-            <main className="main-content"> {/* Apply padding to avoid overlap */}
-              {children}
-            </main>
-            
+        <Providers>
+          <NavbarWrapper />
+          <div className="scrollable-container">
+            <main className="main-content">{children}</main>
           </div>
-        </WalletProvider>
+        </Providers>
       </body>
     </html>
   );

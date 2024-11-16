@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaSearch, FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
-import Image from 'next/image'; // Import the Image component
-import useWallet from '../../hooks/useWallet';
+import { FaSearch, FaBars, FaTimes, FaShoppingCart, FaUser } from 'react-icons/fa';
+import Image from 'next/image';
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const { walletAddress, loading, connectEthereum } = useWallet();
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated";
   const [searchQuery, setSearchQuery] = useState('');
   const [activeLink, setActiveLink] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,8 +18,6 @@ const Navbar = () => {
     { path: '/user', name: 'User' },
     { path: '/checkout', name: 'Checkout' },
     { path: '/admin', name: 'Admin' },
-    { path: '/auth/login', name: 'Login' },
-    { path: '/auth/register', name: 'Register' },
   ];
 
   const handleSearch = (e) => {
@@ -46,29 +45,29 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <nav 
-      className="navbar p-4 fixed w-full top-0 left-0 z-50 flex justify-between items-center rounded-lg backdrop-blur-md"
+    <nav
+      className="fixed top-0 left-0 z-50 flex items-center justify-between w-full p-4 rounded-lg navbar backdrop-blur-md"
       style={{ backgroundColor: 'rgba(32, 32, 32, 0.7)' }}
     >
       {/* Logo and Title */}
       <div className="flex items-center space-x-2">
-        <Image 
-          src="/images/home/icon.png" 
-          alt="Site Logo" 
-          width={32} // Set the actual width of your logo
-          height={32} // Set the actual height of your logo
-          className="text-white text-2xl rounded-lg"
+        <Image
+          src="/images/home/icon.png"
+          alt="Site Logo"
+          width={32}
+          height={32}
+          className="text-2xl text-white rounded-lg"
         />
         <Link href="/" className="cursor-pointer">
-          <span className="text-white text-lg font-bold">MetaMint</span>
+          <span className="text-lg font-bold text-white">MetaMint</span>
         </Link>
       </div>
 
       {/* Search Bar */}
-      <div className="flex-1 flex justify-center items-center">
-        <form 
-          onSubmit={handleSearch} 
-          className="relative w-full max-w-md flex items-center"
+      <div className="flex items-center justify-center flex-1">
+        <form
+          onSubmit={handleSearch}
+          className="relative flex items-center w-full max-w-md"
         >
           <label htmlFor="search" className="sr-only">Search</label>
           <input
@@ -79,30 +78,45 @@ const Navbar = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" className="absolute right-2 text-gray-400 hover:text-white" aria-label="Search">
+          <button type="submit" className="absolute text-gray-400 right-2 hover:text-white" aria-label="Search">
             <FaSearch />
           </button>
         </form>
       </div>
 
-      {/* Wallet and Cart */}
+      {/* Cart and Hamburger */}
       <div className="flex items-center space-x-4">
-        <button 
-          onClick={connectEthereum} 
-          className="bg-blue-600 text-white px-4 py-2 rounded-full"
-          disabled={loading}
-          aria-label="Connect Wallet"
-        >
-          {loading ? 'Connecting...' : walletAddress ? 'Connected' : 'Connect Wallet'}
-        </button>
-
         <Link href="/checkout">
-          <FaShoppingCart className="text-white text-2xl cursor-pointer" aria-label="Cart" />
+          <FaShoppingCart className="text-2xl text-white cursor-pointer" aria-label="Cart" />
         </Link>
 
-        <button 
-          onClick={toggleMenu} 
-          className="text-white text-2xl ml-4 focus:outline-none hamburger p-2 bg-gray-500 rounded-lg hover:bg-gray-400 transition-all duration-300 ease-in-out"
+        {/* Display Login or Logout button based on authentication */}
+        {!isAuthenticated ? (
+          <button
+            onClick={() => signIn('github')} // Use GitHub login
+            className="px-4 py-2 text-white bg-blue-600 rounded-full"
+            aria-label="Login"
+          >
+            Login with GitHub
+          </button>
+        ) : (
+          <>
+            <Link href="/user">
+              <FaUser className="text-2xl text-white cursor-pointer" aria-label="User Profile" />
+            </Link>
+            <button
+              onClick={() => signOut()}
+              className="px-4 py-2 text-white bg-red-600 rounded-full"
+              aria-label="Logout"
+            >
+              Logout
+            </button>
+          </>
+        )}
+
+        <button
+          onClick={toggleMenu}
+          className="p-2 ml-4 text-2xl text-white transition-all duration-300 ease-in-out bg-gray-500 rounded-lg focus:outline-none hamburger hover:bg-gray-400"
           aria-label="Toggle Menu"
         >
           <FaBars />
@@ -114,24 +128,35 @@ const Navbar = () => {
         className={`side-nav flex flex-col bg-gray-900 h-screen p-6 space-y-6 fixed right-0 top-0 transform transition-transform duration-500 ease-in-out rounded-lg ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{ width: '220px' }}
       >
-        <button 
-          onClick={toggleMenu} 
-          className="self-end text-white text-2xl focus:outline-none hover:text-red-400 transition-all duration-300 ease-in-out"
+        <button
+          onClick={toggleMenu}
+          className="self-end text-2xl text-white transition-all duration-300 ease-in-out focus:outline-none hover:text-red-400"
           aria-label="Close Menu"
         >
           <FaTimes />
         </button>
 
         {navLinks.map(({ path, name }, index) => (
-          <Link 
-            key={index} 
-            href={path} 
+          <Link
+            key={index}
+            href={path}
             className={`text-white hover:bg-gray-700 p-2 rounded-lg hover:text-gray-300 transition-colors duration-300 ${activeLink === path ? 'underline' : ''}`}
             onClick={() => setActiveLink(path)}
           >
             {name}
           </Link>
         ))}
+
+        {/* Logout Button in Hamburger Menu */}
+        {isAuthenticated && (
+          <button
+            onClick={() => signOut()}
+            className="p-2 text-white transition-colors duration-300 bg-red-600 rounded-lg hover:bg-red-700"
+            aria-label="Logout"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

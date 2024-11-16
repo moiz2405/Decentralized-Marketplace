@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
             <main className="main-content"> {/* Apply padding to avoid overlap */}
               {children}
             </main>
+            
           </div>
         </WalletProvider>
       </body>
